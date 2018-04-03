@@ -1,44 +1,39 @@
-// Update with your config settings.
+'use strict'
+const path = require('path')
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
+    client: 'pg',
+    connection: 'postgres://localhost:5432/salefinder',
+    migrations: {
+      directory: path.join(__dirname, 'db', 'migrations')
+    },
+    seeds: {
+      directory: path.join(__dirname, 'db', 'seeds')
     }
   },
 
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/salefinder',
     migrations: {
-      tableName: 'knex_migrations'
+      directory: path.join(__dirname, 'db', 'migrations')
+    },
+    seeds: {
+      directory: path.join(__dirname, 'db', 'seeds')
     }
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
     migrations: {
-      tableName: 'knex_migrations'
+      directory: path.join(__dirname, 'db', 'migrations')
+    },
+    seeds: {
+      directory: path.join(__dirname, 'db', 'seeds')
     }
   }
-
-};
+}
