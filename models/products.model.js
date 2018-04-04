@@ -10,7 +10,7 @@ class Product {
     return axios.get(`https://www.iamdata.co/v1/products?name=${name}&full_resp=true&client_id=${process.env.IAMDATA_KEY}&client_secret=${process.env.IAMDATA_SECRET}`)
     .then(result => {
       return result.data.result.map(item => {
-        return { name: item.name, image: item.large_image, upc: item.upc || 'UPC - not on file', tags: item.tags }
+        return { name: item.name, image: item.large_image, upc: item.upc || 'UPC - not on file' }
       })
     })
     .catch(console.error)
