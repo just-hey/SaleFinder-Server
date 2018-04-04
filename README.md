@@ -4,7 +4,7 @@
 *[Justin Hays](https://github.com/just-hey "Justin Hays' GitHub")*
 
 
-SaleFinder is a full stack React App that allows users to register and have weekly text messages sent to them about what grocery items are on sale.  SaleFinder utilizes web scraping to pull date from the site [FoodKick](http://www.foodkick.com).
+SaleFinder is a full stack React App that allows users to register and have weekly text messages sent to them about what products are on sale.  SaleFinder utilizes web scraping to pull date from the site [FoodKick](http://www.foodkick.com).
 
 SaleFinder was created in 2 weeks.
 

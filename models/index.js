@@ -1,5 +1,5 @@
 module.exports = {
   User: require('./users.model'),
-  Food: require('./foods.model'),
+  Product: require('./Products.model'),
   // Token: require('./token.model')
 }

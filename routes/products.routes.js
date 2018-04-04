@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 // const AuthCtrl = require('../controllers/auth.conroller')
-const { FoodsController } = require('../controllers')
+const { ProductsController } = require('../controllers')
 
-router.get('/:name', FoodsController.searchByName)
+router.get('/:name', ProductsController.searchByName)
 
 
 module.exports = router

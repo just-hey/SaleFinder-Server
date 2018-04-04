@@ -1,5 +1,5 @@
 module.exports = {
   UsersRouter: require('./users.routes'),
-  FoodsRouter: require('./foods.routes'),
+  ProductsRouter: require('./products.routes'),
   // AuthRouter: require('./auth.routes')
 }
