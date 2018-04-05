@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('carts_items', (table) => {
+  return knex.schema.createTable('cart_items', (table) => {
     table.increments()
     table.integer('cart_id').notNullable()
     table.foreign('cart_id').references('carts.id').onDelete('CASCADE')
@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('carts_items')
+  return knex.schema.dropTable('cart_items')
 }

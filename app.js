@@ -11,9 +11,10 @@ app.disable('x-powered-by')
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 
-const { UsersRouter, ProductsRouter } = require('./routes')
+const { UsersRouter, ProductsRouter, CartsRouter } = require('./routes')
 app.use('/users', UsersRouter)
 app.use('/products', ProductsRouter)
+app.use('/carts', CartsRouter)
 
 app.use((err, req, res, next) => {
   const status = err.status || 500
