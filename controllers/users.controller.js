@@ -8,9 +8,7 @@ class UsersController {
       .then(users => {
         return res.json({ users })
       })
-      .catch(err => {
-        console.log('Error!', err)
-      })
+      .catch(console.error)
   }
 }
 

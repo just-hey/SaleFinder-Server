@@ -6,14 +6,9 @@ class Cart {
   constructor() {}
 
   static searchByUser(id) {
-    console.log('model firing');
     return knex('carts')
       .where({ user_id: id })
       .first()
-      // .then(data => {
-      //   console.log('deep model')
-      //   return data
-      // })
   }
 
 }

@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('items', (table) => {
+  return knex.schema.createTable('products', (table) => {
     table.increments()
     table.string('name').notNullable().defaultTo('')
     table.string('image').notNullable().defaultTo('http://www.moxmultisport.com/wp-content/uploads/no-image.jpg')
@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('items')
+  return knex.schema.dropTable('products')
 }

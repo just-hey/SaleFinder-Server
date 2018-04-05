@@ -1,9 +1,9 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('items').del()
+  return knex('products').del()
     .then(function () {
       // Inserts seed entries
-      return knex('items').insert([
+      return knex('products').insert([
         { id: 1, name: 'Wild Carrot Herbals Wild Carrot Herbals, Baby Carrot, Botanical Baby Powder', image: 'http://www.moxmultisport.com/wp-content/uploads/no-image.jpg', upc: '853481001703', store: 'Target' },
         { id: 2, name: 'CLEAN / DIRTY Star Wars Legos - Dishwasher Magnet. Yoda Vader LEGO Minifigure', image: 'http://az439100.vo.msecnd.net/200/LB1e9bHud0SF8LlG8dWgMw_200.jpg', upc: '655257526379', store: 'Target' },
         { id: 3, name: 'Crisp Lavash Chips Crisp Lavash Chips, Potato Chips, Sesame Rosemary', image: 'http://www.moxmultisport.com/wp-content/uploads/no-image.jpg', upc: '032157511139', store: 'Target' },
@@ -14,7 +14,7 @@ exports.seed = function(knex, Promise) {
       ])
     }).then(() => {
       return knex.raw(
-        `SELECT setval('items_id_seq', (SELECT MAX(id) FROM items));`
+        `SELECT setval('products_id_seq', (SELECT MAX(id) FROM products));`
       )
     })
 }

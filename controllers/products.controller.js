@@ -8,9 +8,7 @@ class ProductsController {
       .then(product => {
         return res.json({ product })
       })
-      .catch(err => {
-        console.log('Error!', err)
-      })
+      .catch(console.error)
   }
 }
 
