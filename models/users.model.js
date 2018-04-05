@@ -6,9 +6,23 @@ class User {
   constructor() {}
 
   static index() {
-    //false for now...
-    // return knex('users')
+    return knex('users')
   }
+
+  static getUserById (id) {
+    return db('users')
+    .select('id', 'first_name', 'email', 'phone')
+    .where({ id })
+    .first()
+  }
+
+  static getUserIdByEmail (email) {
+    return db('users')
+    .select('id')
+    .where({ email })
+    .first()
+  }
+
 }
 
 module.exports = User

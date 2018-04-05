@@ -11,18 +11,25 @@ app.disable('x-powered-by')
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 
+const processErrorMessage = require('./models/errors.model')
+
 const { UsersRouter, ProductsRouter, CartsRouter } = require('./routes')
 app.use('/users', UsersRouter)
 app.use('/products', ProductsRouter)
 app.use('/carts', CartsRouter)
 
-app.use((err, req, res, next) => {
-  const status = err.status || 500
-  res.status(status).json({ error: err })
+app.use((req, res) => {
+  const status = 404;
+  const message = `Could not ${req.method} ${req.path}`;
+  res.status(status).json({ status, message });
 })
 
-app.use((req, res, next) => {
-  res.status(404).json({ error: { message: 'Not found' } })
+app.use((err, req, res, next) => {
+  err = processErrorMessage(err)
+  const status = err.status || 500
+  const message = err.message || 'Internal Error.  Sad server is sad.'
+  console.log('back to app');
+  res.status(status).json({ status, message })
 })
 
 app.listen(port, () => console.log(`On port: ${port}`))

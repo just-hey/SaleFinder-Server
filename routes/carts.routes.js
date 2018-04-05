@@ -3,7 +3,17 @@ const router = express.Router()
 // const AuthCtrl = require('../controllers/auth.conroller')
 const { CartsController } = require('../controllers')
 
-router.get('/:userid', CartsController.searchByUser)
+//get all products attached to this user's cart
+router.get('/find/:userid', CartsController.searchByUser)
+
+//make a new cart for a user
+router.post('/new/:userid', CartsController.createCart)
+
+//add a product to a user's cart
+router.post('/add/:userid', CartsController.addToCart)
+
+//remove a product from a user's cart
+router.delete('/remove/:userid', CartsController.removeFromCart)
 
 
 module.exports = router
