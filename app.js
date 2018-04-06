@@ -9,7 +9,8 @@ require('dotenv').config()
 app.use(cors())
 app.disable('x-powered-by')
 app.use(morgan('dev'))
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '50mb' }))
 
 const processErrorMessage = require('./models/errors.model')
 
