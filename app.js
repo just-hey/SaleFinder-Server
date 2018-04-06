@@ -28,7 +28,6 @@ app.use((err, req, res, next) => {
   err = processErrorMessage(err)
   const status = err.status || 500
   const message = err.message || 'Internal Error.  Sad server is sad.'
-  console.log('back to app');
   res.status(status).json({ status, message })
 })
 

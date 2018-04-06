@@ -5,10 +5,8 @@ class UsersController {
 
   static create(req, res, next) {
     User.index()
-      .then(users => {
-        return res.json({ users })
-      })
-      .catch(console.error)
+      .then(users => res.json({ users }))
+      .catch(err => next(err))
   }
 }
 

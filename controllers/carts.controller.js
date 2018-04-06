@@ -9,7 +9,7 @@ class CartsController {
         if (!cart) throw new Error('noCartFound')
         return res.status(200).json({ cart })
       })
-      .catch(console.error)
+      .catch(err => next(err))
   }
 
   static createCart(req, res, next) {
@@ -24,7 +24,7 @@ class CartsController {
         return Cart.createCart(user_id)
       })
       .then(cart => res.status(200).json({ cart }))
-      .catch(console.error)
+      .catch(err => next(err))
   }
 
   static addToCart(req, res, next) {
@@ -40,6 +40,7 @@ class CartsController {
         return Cart.addToCart(user_id, product_id)
       })
       .then(cart => res.status(202).json({ cart }))
+      .catch(err => next(err))
   }
 
   static removeFromCart(req, res, next) {
@@ -55,6 +56,7 @@ class CartsController {
         return Cart.removeFromCart(foundProduct)
       })
       .then(cart => res.status(202).json({ cart }))
+      .catch(err => next(err))
   }
 
 }

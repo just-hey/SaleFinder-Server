@@ -6,18 +6,14 @@ class ProductsController {
 
   static getAllProducts(req, res, next) {
     Product.getAllProducts()
-      .then(products => {
-        return res.json({ products })
-      })
-      .catch(console.error)
+      .then(products => res.json({ products }))
+      .catch(err => next(err))
   }
 
   static searchByNameForeign(req, res, next) {
     Product.searchByNameForeign(req.params.name)
-      .then(product => {
-        return res.json({ product })
-      })
-      .catch(console.error)
+      .then(product => res.json({ product }))
+      .catch(err => next(err))
   }
 
   static searchByNameLocal(req, res, next) {
@@ -25,14 +21,14 @@ class ProductsController {
     Product.getAllProducts()
       .then(products => {
         let matches = products.filter(product => product.name.toLowerCase().includes(incomingName.toLowerCase()))
-        console.log(matches);
         if (!matches || matches.length < 1) throw new Error('nomatchesfound')
         return res.json({ matches })
       })
-      .catch(console.error)
+      .catch(err => next(err))
   }
 
   static createProduct(req, res, next) {
+
     let { products } = req.body
     products.forEach(incoming => {
       Product.searchByNameLocal(incoming.name)
@@ -40,10 +36,7 @@ class ProductsController {
           if (exists) throw new Error('duplicateProduct')
           return Product.createProduct(incoming)
         })
-      // .then(product => {
-      //   return res.json({ product })
-      // })
-      .catch(console.error)
+        .catch(err => next(err))
     })
     return res.status(200).json({ message: 'Call complete' })
   }
