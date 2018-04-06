@@ -7,6 +7,8 @@ function processErrorMessage(err) {
       case 'noCartFound': return { status: 404, message: 'A cart for this user does not exist' }
       case 'alreadyInCart': return { status: 409, message: 'Product already exists in user cart' }
       case 'notInCart': return { status: 409, message: 'Product does not exist in user cart' }
+      case 'nomatchesfound': return { status: 404, message: 'No products containing that word found at this time' }
+      case 'duplicateProduct': return { status: 409, message: 'A product with the exact same name exists' }
 
       default:
         return { status: 500, message: 'Our apologies, but an internal server error has occurred' }
