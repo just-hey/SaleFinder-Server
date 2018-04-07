@@ -9,6 +9,11 @@ function processErrorMessage(err) {
       case 'notInCart': return { status: 409, message: 'Product does not exist in user cart' }
       case 'nomatchesfound': return { status: 404, message: 'No products containing that word found at this time' }
       case 'duplicateProduct': return { status: 409, message: 'A product with the exact same name exists' }
+      case 'missingFirstName': return { status: 400, message: 'A first name is required' }
+      case 'missingEmail': return { status: 400, message: 'An email is required' }
+      case 'missingPhone': return { status: 400, message: 'A phone number is required' }
+      case 'missingPassword': return { status: 400, message: 'A password is required'  }
+      case 'duplicateUser': return { status: 409, message: 'A user with this email already exists' }
 
       default:
         return { status: 500, message: 'Our apologies, but an internal server error has occurred' }
