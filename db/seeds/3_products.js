@@ -1,8 +1,6 @@
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
   return knex('products').del()
     .then(function () {
-      // Inserts seed entries
       return knex('products').insert([
         { id: 1, name: 'Wild Carrot Herbals Wild Carrot Herbals, Baby Carrot, Botanical Baby Powder', image: 'http://www.moxmultisport.com/wp-content/uploads/no-image.jpg', upc: '853481001703', price: 'fal$e', store: 'Target' },
         { id: 2, name: 'CLEAN / DIRTY Star Wars Legos - Dishwasher Magnet. Yoda Vader LEGO Minifigure', image: 'http://az439100.vo.msecnd.net/200/LB1e9bHud0SF8LlG8dWgMw_200.jpg', upc: '655257526379', price: 'fal$e', store: 'Target' },

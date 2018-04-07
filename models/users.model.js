@@ -19,7 +19,7 @@ class User {
 
   static getUserIdByEmail(email) {
     return db('users')
-      .select('id')
+      .select('id', 'hashed_password')
       .where({ email })
       .first()
   }

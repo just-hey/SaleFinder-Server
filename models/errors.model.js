@@ -14,6 +14,7 @@ function processErrorMessage(err) {
       case 'missingPhone': return { status: 400, message: 'A phone number is required' }
       case 'missingPassword': return { status: 400, message: 'A password is required'  }
       case 'duplicateUser': return { status: 409, message: 'A user with this email already exists' }
+      case 'noSuchUser': return { status: 409, message: 'Incorrect email and/or password' }
 
       default:
         return { status: 500, message: 'Our apologies, but an internal server error has occurred' }
