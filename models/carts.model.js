@@ -18,8 +18,8 @@ class Cart {
 
   static createCart(id) {
     return knex('carts')
-      .insert(id)
-      .returning('*')
+      .insert({ user_id: id })
+      .returning(['*'])
   }
 
   static checkForProduct(user_id, product_id) {

@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Token, Cart } = require('../models')
 
 class UsersController {
   constructor() {}
@@ -11,28 +11,33 @@ class UsersController {
   }
 
   static create(req, res, next) {
-      let {first_name, email, phone, password} = req.body
-      if (!first_name)
-        throw new Error('missingFirstName')
-      if (!email)
-        throw new Error('missingEmail')
-      if (!phone)
-        throw new Error('missingPhone')
-      if (!password)
-        throw new Error('missingPassword')
-      // Verify that email is unique
-      User.getUserIdByEmail(email)
-        .then(existingUser => {
-          if (existingUser) throw new Error('duplicateUser')
-            // If unique, add new user to database; all new users created with role of 'user'
-          return User.create(first_name, last_name, email, password)
-        })
-      // Sign and return a token for the new user
-        .then(newUserId => Token.sign(newUserId[0].id))
-      // Return token to client
-        .then(token => res.status(201).json({response: token})).catch(next)
-        .catch(err => next(err))
-    }
+    let { first_name, email, phone, password } = req.body
+    let id
+    if (!first_name)
+      throw new Error('missingFirstName')
+    if (!email)
+      throw new Error('missingEmail')
+    if (!phone)
+      throw new Error('missingPhone')
+    if (!password)
+      throw new Error('missingPassword')
+    User.getUserIdByEmail(email)
+      .then(existingUser => {
+        if (existingUser) throw new Error('duplicateUser')
+        return User.create(first_name, email, phone, password)
+      })
+      .then(newUserId => {
+        return Cart.createCart(newUserId[0].id)
+      })
+      .then(userId => {
+        id = userId[0].id
+        return Token.sign(id)
+      })
+      .then(token => {
+        return res.status(201).json({ response: token, id })
+      })
+      .catch(err => next(err))
+  }
 
 
 }
