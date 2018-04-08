@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 // const AuthCtrl = require('../controllers/auth.conroller')
-const { CartsController } = require('../controllers')
+const { AuthController, CartsController } = require('../controllers')
 
 //get all products attached to this user's cart
 router.get('/find/:userid', CartsController.searchByUser)
