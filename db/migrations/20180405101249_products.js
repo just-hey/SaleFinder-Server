@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('upc').notNullable().defaultTo('000000000000')
     table.string('price').notNullable().defaultTo('')
     table.string('store').notNullable().defaultTo('')
-    table.int('week').notNullable().defaultTo(0)
+    table.integer('week').notNullable().defaultTo(0)
     table.timestamps(true, true)
   })
 }
