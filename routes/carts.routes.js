@@ -10,10 +10,12 @@ router.get('/find/:userid', CartsController.searchByUser)
 router.post('/new/:userid', CartsController.createCart)
 
 //add a product to a user's cart
-router.post('/add/:userid', CartsController.addToCart)
+// router.post('/add/:userid', CartsController.addToCart)
+router.post('/change', CartsController.addOrRemove)
+
 
 //remove a product from a user's cart
-router.delete('/remove/:userid', CartsController.removeFromCart)
+// router.delete('/remove/:userid', CartsController.removeFromCart)
 
 
 module.exports = router

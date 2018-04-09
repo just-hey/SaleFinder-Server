@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 class User {
   constructor() {}
 
+// temp view all users route
   static index() {
     return knex('users')
   }
@@ -15,6 +16,7 @@ class User {
       .select('id', 'first_name', 'email', 'phone')
       .where({ id })
       .first()
+      .then()
   }
 
   static getUserIdByEmail(email) {

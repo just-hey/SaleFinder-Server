@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const port = process.env.PORT || 3000
 require('dotenv').config()
 
-app.use(cors())
+app.use(cors({ exposedHeaders: 'Auth' }))
 app.disable('x-powered-by')
 app.use(morgan('dev'))
 app.use(bodyParser.json({ limit: '50mb' }))

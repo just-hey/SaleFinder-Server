@@ -5,7 +5,8 @@ class ProductsController {
   constructor() {}
 
   static getAllProducts(req, res, next) {
-    Product.getAllProducts()
+    let { zip } = req.body
+    Product.getAllProducts(zip)
       .then(products => res.json({ products }))
       .catch(err => next(err))
   }

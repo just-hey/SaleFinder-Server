@@ -15,6 +15,7 @@ function processErrorMessage(err) {
       case 'missingPassword': return { status: 400, message: 'A password is required'  }
       case 'duplicateUser': return { status: 409, message: 'A user with this email already exists' }
       case 'noSuchUser': return { status: 409, message: 'Incorrect email and/or password' }
+      case 'invalidToken': return { status: 409, message: 'Invalid token' }
 
       default:
         return { status: 500, message: 'Our apologies, but an internal server error has occurred' }

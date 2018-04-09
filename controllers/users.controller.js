@@ -4,24 +4,37 @@ const bcrypt = require('bcryptjs')
 class UsersController {
   constructor() {}
 
-  //temp route
+  //temp view all users route
   static viewAll(req, res, next) {
     User.index()
       .then(users => res.json({ users }))
       .catch(err => next(err))
   }
 
+  static byToken(req, res, next) {
+    let user
+    Token.verifyAndExtractHeaderToken(req.headers)
+    .then(token => User.getUserById(token.sub.id))
+    .then(userInfo => {
+      if (!userInfo) throw new Error('noSuchUser')
+      user = userInfo
+      return Cart.searchByUser(user.id)
+    })
+    .then(cart => {
+      return res.status(200).json({ response: user, cart })
+    })
+    .catch(err => {
+      throw new Error('invalidToken')
+    })
+}
+
   static create(req, res, next) {
     let { first_name, email, phone, password } = req.body
     let id
-    if (!first_name)
-      throw new Error('missingFirstName')
-    if (!email)
-      throw new Error('missingEmail')
-    if (!phone)
-      throw new Error('missingPhone')
-    if (!password)
-      throw new Error('missingPassword')
+    if (!first_name) throw new Error('missingFirstName')
+    if (!email) throw new Error('missingEmail')
+    if (!phone) throw new Error('missingPhone')
+    if (!password) throw new Error('missingPassword')
     User.getUserIdByEmail(email)
       .then(existingUser => {
         if (existingUser) throw new Error('duplicateUser')
@@ -55,7 +68,7 @@ class UsersController {
         cart = cartInfo
         return Token.sign(id)
       })
-      .then(token => res.status(201).json({ response: token, id, cart }))
+      .then(token => res.status(201).set('Auth', `Bearer: ${token}`).json({ response: id, cart }))
       .catch(err => next(err))
   }
 

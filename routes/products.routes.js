@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const { ProductsController } = require('../controllers')
 
-//get all products
-router.get('/all', ProductsController.getAllProducts)
 
 //search for product by name (not from this db)
 router.get('/foreign/:name', ProductsController.searchByNameForeign)
@@ -13,6 +11,9 @@ router.get('/local/:name', ProductsController.searchByNameLocal)
 
 //add products to db via array from crawlers
 router.post('/add', ProductsController.createProduct)
+
+//get all products
+router.post('/all', ProductsController.getAllProducts)
 
 //remove products from db based off time? HOW?!
 

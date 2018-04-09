@@ -5,8 +5,19 @@ const axios = require('axios')
 class Product {
   constructor() {}
 
-  static getAllProducts() {
+  static getAllProducts(zip) {
+    let returningProducts = []
     return knex('products')
+      .where({ zip })
+      .then(products => {
+        returningProducts.push(products)
+        return knex('products')
+          .where({ zip: 'local' })
+          .then(localProducts => {
+            returningProducts.push(localProducts)
+            return returningProducts
+          })
+      })
   }
 
   static searchByNameForeign(name) {
