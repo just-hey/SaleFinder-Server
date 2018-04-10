@@ -31,43 +31,10 @@ class CartsController {
     let { user_id, product_id } = req.body
     Cart.addOrRemove(user_id, product_id)
       .then(cart => {
-        console.log('this?',cart.length)
         return res.status(200).json({ cart })
       })
       .catch(console.error)
   }
-
-  // static addToCart(req, res, next) {
-  //   let { product_id } = req.body
-  //   let user_id = req.params.userid
-  //   Cart.searchByUser(user_id)
-  //     .then(found => {
-  //       if (!found) throw new Error('noCartFound')
-  //       return Cart.checkForProduct(user_id, product_id)
-  //     })
-  //     .then(hasProduct => {
-  //       if(hasProduct) throw new Error('alreadyInCart')
-  //       return Cart.addToCart(user_id, product_id)
-  //     })
-  //     .then(cart => res.status(202).json({ cart }))
-  //     .catch(err => next(err))
-  // }
-  //
-  // static removeFromCart(req, res, next) {
-  //   let { product_id } = req.body
-  //   let user_id = req.params.userid
-  //   Cart.searchByUser(user_id)
-  //     .then(found => {
-  //       if (!found) throw new Error('noCartFound')
-  //       return Cart.checkForProduct(user_id, product_id)
-  //     })
-  //     .then(foundProduct => {
-  //       if(!foundProduct) throw new Error('notInCart')
-  //       return Cart.removeFromCart(foundProduct)
-  //     })
-  //     .then(cart => res.status(202).json({ cart }))
-  //     .catch(err => next(err))
-  // }
 
 }
 

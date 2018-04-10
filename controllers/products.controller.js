@@ -6,6 +6,7 @@ class ProductsController {
 
   static getAllProducts(req, res, next) {
     let { zip } = req.body
+    console.log(zip)
     Product.getAllProducts(zip)
       .then(products => res.json({ products }))
       .catch(err => next(err))
@@ -29,10 +30,9 @@ class ProductsController {
   }
 
   static createProduct(req, res, next) {
-
     let { products } = req.body
     products.forEach(incoming => {
-      Product.searchByNameLocal(incoming.name)
+      Product.searchByNameLocal(incoming.name, incoming.zip)
         .then(exists => {
           if (exists) throw new Error('duplicateProduct')
           return Product.createProduct(incoming)

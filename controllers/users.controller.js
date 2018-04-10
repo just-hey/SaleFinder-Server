@@ -29,16 +29,16 @@ class UsersController {
 }
 
   static create(req, res, next) {
-    let { first_name, email, phone, password } = req.body
+    let { first_name, zip, phone, password } = req.body
     let id
     if (!first_name) throw new Error('missingFirstName')
-    if (!email) throw new Error('missingEmail')
+    if (!zip) throw new Error('missingZip')
     if (!phone) throw new Error('missingPhone')
     if (!password) throw new Error('missingPassword')
-    User.getUserIdByEmail(email)
+    User.getUserIdByPhone(phone)
       .then(existingUser => {
         if (existingUser) throw new Error('duplicateUser')
-        return User.create(first_name, email, phone, password)
+        return User.create(first_name, zip, phone, password)
       })
       .then(newUserId => {
         return Cart.createCart(newUserId[0].id)
@@ -52,13 +52,15 @@ class UsersController {
   }
 
   static login(req, res, next) {
-    const { email, password } = req.body
+    const { phone, password } = req.body
+    console.log(phone, password)
     let id
     let cart
-    if (!email) throw new Error('missingEmail')
+    if (!phone) throw new Error('missingPhone')
     if (!password) throw new Error('missingPassword')
-    User.getUserIdByEmail(email)
+    User.getUserIdByPhone(phone)
       .then(user => {
+        console.log(user)
         if (!user) throw new Error('noSuchUser')
         if (!bcrypt.compareSync(password, user.hashed_password)) throw new Error('noSuchUser')
         id = user.id

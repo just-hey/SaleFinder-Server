@@ -4,7 +4,7 @@ const axios = require('axios')
 
 class Cart {
   constructor() {}
- 
+
   static searchByUser(id) {
     return knex('carts')
       .where({ user_id: id })
@@ -30,16 +30,17 @@ class Cart {
         let cart_id = cart.id
         return knex('cart_products')
           .where({ cart_id, product_id })
+          .first()
           .then(found =>{
             if (!found) {
-              console.log('found it')
               let itemToAdd = { cart_id, product_id }
+              console.log('not found, now add this!', itemToAdd)
               return knex('cart_products')
-               .insert(itemToAdd)
+               .insert({ cart_id, product_id })
             } else {
-              console.log('noper');
+              console.log('found now delete this!', found);
               return knex('cart_products')
-                .where({ cart_id, product_id})
+                .where({ cart_id, product_id })
                 .del()
             }
           })

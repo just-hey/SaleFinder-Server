@@ -10,11 +10,12 @@ class Product {
     return knex('products')
       .where({ zip })
       .then(products => {
-        returningProducts.push(products)
+        if (products) products.forEach(product => returningProducts.push(product))
+        if (zip === 'local') return returningProducts
         return knex('products')
           .where({ zip: 'local' })
           .then(localProducts => {
-            returningProducts.push(localProducts)
+            localProducts.forEach(product => returningProducts.push(product))
             return returningProducts
           })
       })
@@ -36,9 +37,9 @@ class Product {
       .where({ id })
   }
 
-  static searchByNameLocal(name) {
+  static searchByNameLocal(name, zip) {
     return knex('products')
-      .where({ name })
+      .where({ name, zip })
       .first()
   }
 

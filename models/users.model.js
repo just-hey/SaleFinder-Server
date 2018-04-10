@@ -13,23 +13,23 @@ class User {
 
   static getUserById(id) {
     return db('users')
-      .select('id', 'first_name', 'email', 'phone')
+      .select('id', 'first_name', 'zip', 'phone')
       .where({ id })
       .first()
       .then()
   }
 
-  static getUserIdByEmail(email) {
+  static getUserIdByPhone(phone) {
     return db('users')
       .select('id', 'hashed_password')
-      .where({ email })
+      .where({ phone })
       .first()
   }
 
-  static create(first_name, email, phone, password) {
+  static create(first_name, zip, phone, password) {
     let hashed_password = bcrypt.hashSync(password)
     return db('users')
-      .insert({ first_name, email, phone, hashed_password })
+      .insert({ first_name, zip, phone, hashed_password })
       .returning(['id'])
   }
 
