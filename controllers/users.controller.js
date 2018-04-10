@@ -1,4 +1,4 @@
-const { User, Token, Cart } = require('../models')
+const { User, Token, Cart, Product } = require('../models')
 const bcrypt = require('bcryptjs')
 
 class UsersController {
@@ -13,6 +13,7 @@ class UsersController {
 
   static byToken(req, res, next) {
     let user
+    let cart
     Token.verifyAndExtractHeaderToken(req.headers)
     .then(token => User.getUserById(token.sub.id))
     .then(userInfo => {
@@ -20,12 +21,14 @@ class UsersController {
       user = userInfo
       return Cart.searchByUser(user.id)
     })
-    .then(cart => {
-      return res.status(200).json({ response: user, cart })
+    .then(cartItems => {
+      cart = cartItems
+      return Product.getAllProducts(user.zip)
     })
-    .catch(err => {
-      throw new Error('invalidToken')
+    .then(products => {
+      return res.status(200).json({ response: user, cart, products })
     })
+    .catch(err => next(Error('invalidToken')))
 }
 
   static create(req, res, next) {

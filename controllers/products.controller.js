@@ -4,6 +4,16 @@ const levenshtein = require('fast-levenshtein')
 class ProductsController {
   constructor() {}
 
+  static searchByIDLocal(req, res, next) {
+    let { ids } = req.body
+    let products = ids.map(id => {
+      Product.searchByIDLocal(id)
+      .then(product => product)
+      .catch(err => next(err))
+    })
+    return res.json({ products })
+  }
+
   static getAllProducts(req, res, next) {
     let { zip } = req.body
     console.log(zip)
