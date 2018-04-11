@@ -56,14 +56,12 @@ class UsersController {
 
   static login(req, res, next) {
     const { phone, password } = req.body
-    console.log(phone, password)
     let id
     let cart
     if (!phone) throw new Error('missingPhone')
     if (!password) throw new Error('missingPassword')
     User.getUserIdByPhone(phone)
       .then(user => {
-        console.log(user)
         if (!user) throw new Error('noSuchUser')
         if (!bcrypt.compareSync(password, user.hashed_password)) throw new Error('noSuchUser')
         id = user.id
