@@ -9,6 +9,7 @@ class Cart {
     return knex('carts')
       .where({ user_id: id })
       .join('cart_products', 'cart_products.cart_id', 'carts.id')
+      .join('products', 'products.id', 'cart_products.product_id')
   }
 
   static createCart(id) {
