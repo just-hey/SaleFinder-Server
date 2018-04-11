@@ -1,4 +1,4 @@
-const { Cart, User } = require('../models')
+const { Cart, User, Product } = require('../models')
 
 class CartsController {
   constructor() {}
@@ -30,6 +30,11 @@ class CartsController {
   static addOrRemove (req, res, next) {
     let { user_id, product_id } = req.body
     Cart.addOrRemove(user_id, product_id)
+      .then(productIds => {
+        return productIds.filter(id => {
+          return Product.searchByIDLocal(id)
+        })
+      })
       .then(cart => {
         return res.status(200).json({ cart })
       })

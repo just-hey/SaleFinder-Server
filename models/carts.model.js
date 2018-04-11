@@ -8,12 +8,7 @@ class Cart {
   static searchByUser(id) {
     return knex('carts')
       .where({ user_id: id })
-      .first()
-      .then(cart => {
-        let cart_id = cart.id
-        return knex('cart_products')
-          .where({ cart_id })
-      })
+      .join('cart_products', 'cart_products.cart_id', 'carts.id')
   }
 
   static createCart(id) {
@@ -28,21 +23,18 @@ class Cart {
       .first()
       .then(cart => {
         let cart_id = cart.id
-        return knex('cart_products')
-          .where({ cart_id, product_id })
-          .first()
-          .then(found =>{
+        return this.searchByUser(id)
+          .then(cartProducts =>{
+            let found = cartProducts.find(el => el.product_id === product_id)
             if (!found) {
               let itemToAdd = { cart_id, product_id }
-              console.log('not found, now add this!', itemToAdd)
               return knex('cart_products')
-               .insert({ cart_id, product_id })
+                .insert({ cart_id, product_id })
             } else {
-              console.log('found now delete this!', found);
               return knex('cart_products')
                 .where({ cart_id, product_id })
                 .del()
-            }
+             }
           })
           .then(() => {
             return this.searchByUser(id)

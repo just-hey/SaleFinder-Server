@@ -16,7 +16,6 @@ class User {
       .select('id', 'first_name', 'zip', 'phone')
       .where({ id })
       .first()
-      .then()
   }
 
   static getUserIdByPhone(phone) {
