@@ -34,6 +34,7 @@ class UsersController {
   static create(req, res, next) {
     let { first_name, zip, phone, password } = req.body
     let id
+    // let token
     if (!first_name) throw new Error('missingFirstName')
     if (!zip) throw new Error('missingZip')
     if (!phone) throw new Error('missingPhone')
@@ -50,7 +51,17 @@ class UsersController {
         id = userId[0].id
         return Token.sign(id)
       })
-      .then(token => res.status(201).json({ response: token, id }))
+      .then(token => {
+        // token = signedToken
+        // return Product.getAllProducts(zip)
+        return res.status(201).set('Auth', `Bearer: ${token}`).json({ response: id, zip })
+      })
+      // .then(products => {
+      //   // if (products.length) return res.status(201).set('Auth', `Bearer: ${token}`).json({ response: id })
+      //   // Product.scrapeTrigger(zip)
+      // })
+      // .then(finished => {
+      // })
       .catch(err => next(err))
   }
 

@@ -1,5 +1,6 @@
 const { Product } = require('../models')
 const levenshtein = require('fast-levenshtein')
+const axios = require('axios')
 
 class ProductsController {
   constructor() {}
@@ -36,6 +37,10 @@ class ProductsController {
         return res.json({ matches })
       })
       .catch(err => next(err))
+  }
+
+  static async scrapeTrigger(zip) {
+    return axios.get(`${process.env.CRAWLERS_URL}scrape/${zip}`)
   }
 
   static async createProduct(req, res, next) {
