@@ -24,7 +24,7 @@ class Cart {
       .then(cart => {
         let cart_id = cart.id
         return this.searchByUser(user_id)
-          .then(cartProducts =>{
+          .then(cartProducts => {
             let found = cartProducts.find(el => el.productString === productString)
             if (!found) {
               let itemToAdd = { cart_id, productString }
