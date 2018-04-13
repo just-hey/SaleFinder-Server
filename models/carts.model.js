@@ -5,11 +5,10 @@ const axios = require('axios')
 class Cart {
   constructor() {}
 
-  static searchByUser(id) {
+  static searchByUser(user_id) {
     return knex('carts')
-      .where({ user_id: id })
+      .where({ user_id })
       .join('cart_products', 'cart_products.cart_id', 'carts.id')
-      .join('products', 'products.id', 'cart_products.product_id')
   }
 
   static createCart(id) {
@@ -18,27 +17,27 @@ class Cart {
       .returning(['*'])
   }
 
-  static addOrRemove(id, product_id) {
+  static addOrRemove(user_id, productString) {
     return knex('carts')
-      .where({ user_id: id })
+      .where({ user_id })
       .first()
       .then(cart => {
         let cart_id = cart.id
-        return this.searchByUser(id)
+        return this.searchByUser(user_id)
           .then(cartProducts =>{
-            let found = cartProducts.find(el => el.product_id === product_id)
+            let found = cartProducts.find(el => el.productString === productString)
             if (!found) {
-              let itemToAdd = { cart_id, product_id }
+              let itemToAdd = { cart_id, productString }
               return knex('cart_products')
-                .insert({ cart_id, product_id })
+                .insert({ cart_id, productString })
             } else {
               return knex('cart_products')
-                .where({ cart_id, product_id })
+                .where({ cart_id, productString })
                 .del()
              }
           })
           .then(() => {
-            return this.searchByUser(id)
+            return this.searchByUser(user_id)
           })
       })
   }

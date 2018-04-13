@@ -28,13 +28,8 @@ class CartsController {
   }
 
   static addOrRemove (req, res, next) {
-    let { user_id, product_id } = req.body
-    Cart.addOrRemove(user_id, product_id)
-      .then(productIds => {
-        return productIds.filter(id => {
-          return Product.searchByIDLocal(id)
-        })
-      })
+    let { user_id, productString } = req.body
+    Cart.addOrRemove(user_id, productString)
       .then(cart => {
         return res.status(200).json({ cart })
       })

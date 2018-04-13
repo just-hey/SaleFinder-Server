@@ -1,6 +1,5 @@
 const db = require('../db/knex.js')
 const knex = require('../db/knex')
-const axios = require('axios')
 const bcrypt = require('bcryptjs')
 
 class User {
@@ -29,6 +28,15 @@ class User {
     let hashed_password = bcrypt.hashSync(password)
     return db('users')
       .insert({ first_name, zip, phone, hashed_password })
+      .returning(['id'])
+  }
+
+  static update(id, first_name, zip, phone, password) {
+    let hashed_password
+    if (password) hashed_password = bcrypt.hashSync(password)
+    return db('users')
+      .where({ id })
+      .update({ first_name, zip, phone, hashed_password, thisKeyIsSkipped: undefined })
       .returning(['id'])
   }
 

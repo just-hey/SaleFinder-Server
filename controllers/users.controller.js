@@ -29,12 +29,11 @@ class UsersController {
       return res.status(200).json({ response: user, cart, products })
     })
     .catch(err => next(Error('invalidToken')))
-}
+  }
 
   static create(req, res, next) {
     let { first_name, zip, phone, password } = req.body
     let id
-    // let token
     if (!first_name) throw new Error('missingFirstName')
     if (!zip) throw new Error('missingZip')
     if (!phone) throw new Error('missingPhone')
@@ -52,16 +51,8 @@ class UsersController {
         return Token.sign(id)
       })
       .then(token => {
-        // token = signedToken
-        // return Product.getAllProducts(zip)
         return res.status(201).set('Auth', `Bearer: ${token}`).json({ response: id, zip })
       })
-      // .then(products => {
-      //   // if (products.length) return res.status(201).set('Auth', `Bearer: ${token}`).json({ response: id })
-      //   // Product.scrapeTrigger(zip)
-      // })
-      // .then(finished => {
-      // })
       .catch(err => next(err))
   }
 
@@ -86,6 +77,23 @@ class UsersController {
       .catch(err => next(err))
   }
 
+  static update(req, res, next) {
+    let { id } = req.params
+    let { first_name, zip, phone, password } = req.body
+    if (phone) {
+      User.getUserIdByPhone(phone)
+        .then(existingUser => {
+          if (existingUser) throw new Error('duplicateUser')
+          return User.update(id, first_name, zip, phone, password)
+        })
+        .then(user_id => res.status(200).json({ response: user_id }))
+        .catch(err => next(err))
+    } else {
+      User.update(id, first_name, zip, undefined, password)
+        .then(user_id => res.status(200).json({ response: user_id }))
+        .catch(err => next(err))
+    }
+  }
 
 }
 

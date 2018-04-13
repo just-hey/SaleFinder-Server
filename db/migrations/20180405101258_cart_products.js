@@ -3,8 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments()
     table.integer('cart_id').notNullable()
     table.foreign('cart_id').references('carts.id').onDelete('CASCADE')
-    table.integer('product_id').notNullable()
-    table.foreign('product_id').references('products.id').onDelete('CASCADE')
+    table.string('productString').notNullable().defaultTo('')
     table.timestamps(true, true)
   })
 }
