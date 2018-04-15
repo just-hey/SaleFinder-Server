@@ -11,6 +11,10 @@ class Cart {
       .join('cart_products', 'cart_products.cart_id', 'carts.id')
   }
 
+  static getAllCartItems() {
+    return knex('cart_products')
+  }
+
   static createCart(id, zip) {
     return knex('carts')
       .insert({ user_id: id, zip })

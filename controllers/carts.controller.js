@@ -12,6 +12,11 @@ class CartsController {
       .catch(err => next(err))
   }
 
+  static getAllCartItems(req, res, next) {
+    Cart.getAllCartItems()
+      .then(items => res.status(200).json( items ))
+  }
+
   static createCart(req, res, next) {
     let user_id = req.params.userid
     User.getUserById(user_id)
