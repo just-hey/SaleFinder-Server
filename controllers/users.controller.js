@@ -44,7 +44,7 @@ class UsersController {
         return User.create(first_name, zip, phone, password)
       })
       .then(newUserId => {
-        return Cart.createCart(newUserId[0].id)
+        return Cart.createCart(newUserId[0].id, zip)
       })
       .then(userId => {
         id = userId[0].id

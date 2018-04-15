@@ -5,6 +5,11 @@ const axios = require('axios')
 class Product {
   constructor() {}
 
+  static checkViaZip(zip) {
+    return knex('products')
+      .where({ zip })
+  }
+
   static getAllProducts(zip) {
     let returningProducts = []
     return knex('products')

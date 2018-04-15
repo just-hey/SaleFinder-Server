@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments()
     table.integer('user_id').notNullable()
     table.foreign('user_id').references('users.id').onDelete('CASCADE')
+    table.string('zip').notNullable()
     table.timestamps(true, true)
   })
 }

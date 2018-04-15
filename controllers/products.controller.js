@@ -33,7 +33,16 @@ class ProductsController {
   }
 
   static async scrapeTrigger(zip) {
-    return axios.get(`${process.env.CRAWLERS_URL}scrape/${zip}`)
+    Product.checkViaZip(zip)
+      .then(products => {
+        if (products) {
+          return res.status(200).json({ message: 'We have products in that zip aleady.' })
+        }
+        else {
+          return axios.get(`${process.env.CRAWLERS_URL}scrape/${zip}`)
+        }
+      })
+      .catch(err => next(err))
   }
 
   static async createProduct(req, res, next) {
