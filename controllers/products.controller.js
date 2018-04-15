@@ -22,12 +22,6 @@ class ProductsController {
       .catch(err => next(err))
   }
 
-  static searchByNameForeign(req, res, next) {
-    Product.searchByNameForeign(req.params.name)
-      .then(product => res.json({ product }))
-      .catch(err => next(err))
-  }
-
   static searchByNameLocal(req, res, next) {
     let incomingName = req.params.name
     Product.getAllProducts()
