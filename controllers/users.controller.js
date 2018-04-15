@@ -95,6 +95,15 @@ class UsersController {
     }
   }
 
+  static remove(req, res, next) {
+    console.log(req.params, 'ctrl');
+    let { id } = req.params
+    User.getUserById(id)
+      .then(() => User.remove(id))
+      .then(response => res.status(204).json({ message: `User account deleted.` }))
+      .catch(next)
+  }
+
 }
 
 module.exports = UsersController

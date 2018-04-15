@@ -11,6 +11,7 @@ class User {
   }
 
   static getUserById(id) {
+    console.log(id,'?');
     return db('users')
       .select('id', 'first_name', 'zip', 'phone')
       .where({ id })
@@ -38,6 +39,13 @@ class User {
       .where({ id })
       .update({ first_name, zip, phone, hashed_password, thisKeyIsSkipped: undefined })
       .returning(['id'])
+  }
+
+  static remove(id) {
+    console.log('delete model?',id);
+    return knex('users')
+      .where({ id })
+      .del()
   }
 
 }

@@ -10,7 +10,7 @@ router.get('/find/:userid', CartsController.searchByUser)
 router.post('/new/:userid', CartsController.createCart)
 
 //add a product to a user's cart
-router.post('/change', CartsController.addOrRemove)
+router.post('/change', AuthController.verifyUser, CartsController.addOrRemove)
 
 
 //remove a product from a user's cart
