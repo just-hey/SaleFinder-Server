@@ -1,5 +1,4 @@
 const { Product } = require('../models')
-const levenshtein = require('fast-levenshtein')
 const axios = require('axios')
 
 class ProductsController {

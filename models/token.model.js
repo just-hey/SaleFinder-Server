@@ -13,9 +13,7 @@ class Token {
   }
 
   static verifyAndExtractHeaderToken(header) {
-    // console.log('line16 ',header)
     const token = header.authorization ? header.authorization.replace('Bearer ', '') : null
-    console.log(token);
     return verifyPromise(token, secret)
   }
 
