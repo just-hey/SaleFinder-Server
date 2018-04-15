@@ -37,6 +37,12 @@ class Product {
       .insert(product, '*')
   }
 
+  static deleteByWeek(week) {
+    return knex('products')
+      .where({ week })
+      .del()
+  }
+
 }
 
 module.exports = Product

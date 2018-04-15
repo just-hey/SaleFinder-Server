@@ -16,6 +16,6 @@ router.post('/add', ProductsController.createProduct)
 router.post('/all', ProductsController.getAllProducts)
 
 //remove products from db based off time? HOW?!
-
+router.delete('/week/:week', ProductsController.deleteByWeek)
 
 module.exports = router

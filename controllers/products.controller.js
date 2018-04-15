@@ -49,6 +49,14 @@ class ProductsController {
     })
     return res.status(200).json({ message: 'Call complete' })
   }
+
+  static deleteByWeek(req, res, next) {
+    let { week } = req.params
+    Product.deleteByWeek(week)
+      .then(countRemoved => res.status(200).json({ message: `Total of ${ countRemoved } products deleted.` }) )
+      .catch(err => next(err))
+  }
+
 }
 
 module.exports = ProductsController
