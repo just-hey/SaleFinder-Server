@@ -7,7 +7,10 @@ function testFire() {
       console.log(results)
       return
     })
-    .catch(console.error)
+    .catch(err => {
+      console.log(err)
+      return
+    })
 }
 
 testFire()
