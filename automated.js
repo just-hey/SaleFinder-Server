@@ -5,7 +5,9 @@ function testFire() {
   return axios.get('${testURL}')
     .then(results => {
       console.log(results)
+      return
     })
+    .catch(console.error)
 }
 
 testFire()
