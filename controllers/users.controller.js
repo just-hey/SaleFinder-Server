@@ -11,6 +11,18 @@ class UsersController {
       .catch(err => next(err))
   }
 
+  static fetchZips(req, res, next) {
+    User.fetchZips()
+      .then(zips => {
+        let zipList = []
+        zips.forEach(zip => {
+          if (!zipList.includes(zip.zip)) zipList.push(zip.zip)
+        })
+        return res.json({ zipList })
+      })
+      .catch(err => next(err))
+  }
+
   static byToken(req, res, next) {
     let user
     let cart

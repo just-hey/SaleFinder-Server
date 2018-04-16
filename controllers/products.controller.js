@@ -50,6 +50,7 @@ class ProductsController {
     await products.forEach(incoming => {
       Product.searchByNameLocal(incoming.name, incoming.zip)
         .then(exists => {
+          // if (exists) return true
           if (exists) throw new Error('duplicateProduct')
           return Product.createProduct(incoming)
         })

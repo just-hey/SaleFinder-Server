@@ -10,6 +10,11 @@ class User {
     return knex('users')
   }
 
+  static fetchZips() {
+    return db('users')
+      .select('zip')
+  }
+
   static getUserById(id) {
     return db('users')
       .select('id', 'first_name', 'zip', 'phone')
