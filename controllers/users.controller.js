@@ -12,6 +12,7 @@ class UsersController {
   }
 
   static fetchZips(req, res, next) {
+    console.log('fetchZips triggered')
     User.fetchZips()
       .then(zips => {
         let zipList = []
