@@ -7,13 +7,13 @@ const secret = process.env.SECRET_KEY
 class Token {
 
   static sign(id) {
-    const sub = { id }
-    const expiresIn = '7 days'
+    let sub = { id }
+    let expiresIn = '7 days'
     return signPromise({ sub }, secret, { expiresIn })
   }
 
-  static verifyAndExtractHeaderToken(header) {
-    const token = header.authorization ? header.authorization.replace('Bearer ', '') : null
+  static verifyAndExtractHeaderToken(headers) {
+    let token = headers.authorization ? headers.authorization.replace('Bearer ', '') : null
     return verifyPromise(token, secret)
   }
 
