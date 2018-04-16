@@ -1,5 +1,5 @@
 const axios = require('axios')
-let testURL = 'https://crawler-scrape.herokuapp.com/scrape/wholefoods/98177'
+let testURL = 'https://crawler-scrape.herokuapp.com/scrape/kroger/98177'
 
 function testFire() {
   console.log('automated triggered!!!')
