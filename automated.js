@@ -5,11 +5,11 @@ function testFire() {
   console.log('automated triggered!!!')
   return axios.get(`${testURL}`)
     .then(results => {
-      console.log(results)
+      console.log('worked!',results)
       return
     })
     .catch(err => {
-      console.log(err)
+      console.log('errored out',err)
       return
     })
 }
