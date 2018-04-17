@@ -51,6 +51,7 @@ class UsersController {
 
   static create(req, res, next) {
     let { first_name, zip, phone, password } = req.body
+    console.log('incoming',first_name, zip, phone, password)
     let id
     if (!first_name) throw new Error('missingFirstName')
     if (!zip) throw new Error('missingZip')
@@ -58,20 +59,25 @@ class UsersController {
     if (!password) throw new Error('missingPassword')
     User.getUserIdByPhone(phone)
       .then(existingUser => {
+        console.log('checking if already user')
         if (existingUser) throw new Error('duplicateUser')
         return User.addZip(zip)
       })
       .then(() =>{
+        console.log('actually making user')
         return User.create(first_name, zip, phone, password)
       })
       .then(newUserId => {
+        console.log('make cart')
         return Cart.createCart(newUserId[0].id, zip)
       })
       .then(userId => {
+        console.log('user made, ID = ', userId[0].id)
         id = userId[0].id
         return Token.sign(id)
       })
       .then(token => {
+        console.log('token',token)
         return res.status(201).set('Auth', `Bearer: ${token}`).json({ response: id, zip })
       })
       .catch(err => next(err))
