@@ -1,7 +1,6 @@
 const db = require('../db/knex.js')
 const knex = require('../db/knex')
 const axios = require('axios')
-const { User } = require('./users.model')
 
 class Cart {
   constructor() {}
@@ -44,7 +43,14 @@ class Cart {
              }
           })
           .then(() => {
-            return User.addZip(zip)
+            return knex('zips')
+              .where({ zip })
+              .first()
+              .then(found => {
+                if (found) return null
+                return knex('zips')
+                  .insert({ zip })
+              })
           })
           .then(() => {
             return this.searchByUser(user_id)
