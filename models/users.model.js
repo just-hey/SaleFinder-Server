@@ -11,6 +11,7 @@ class User {
   }
 
   static addZip(zip) {
+    console.log('adding this zip:', zip)
     return knex('zips')
       .where({ zip })
       .first()

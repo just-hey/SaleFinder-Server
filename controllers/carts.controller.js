@@ -36,9 +36,6 @@ class CartsController {
     let { user_id, productString } = req.body
     Cart.addOrRemove(user_id, productString)
       .then(cart => {
-
-
-        console.log(cart);
         return res.status(200).json({ cart })
       })
       .catch(console.error)
