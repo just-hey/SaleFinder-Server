@@ -7,10 +7,10 @@ const secret = process.env.SECRET_KEY
 class Token {
 
   static sign(id) {
-    console.log('incoming ID in sign = ');
+    console.log('incoming ID in sign = ', id)
     let sub = { id }
     let expiresIn = '7 days'
-    console.log('sub = ',sub);
+    console.log('sub = ',sub, 'secret ', secret)
     return signPromise({ sub }, secret, { expiresIn })
   }
 
