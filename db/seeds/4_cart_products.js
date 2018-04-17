@@ -17,4 +17,9 @@ exports.seed = function(knex, Promise) {
         { id: 13, cart_id: 2, productString: 'gatorade' }
       ])
     })
+    .then(() => {
+      return knex.raw(
+        `SELECT setval('cart_products_id_seq', (SELECT MAX(id) FROM cart_products));`
+      )
+    })
 }

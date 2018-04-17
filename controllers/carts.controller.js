@@ -34,7 +34,6 @@ class CartsController {
 
   static addOrRemove (req, res, next) {
     let { user_id, productString } = req.body
-    console.log('dis',user_id, productString);
     Cart.addOrRemove(user_id, productString)
       .then(cart => {
 

@@ -11,15 +11,20 @@ class UsersController {
       .catch(err => next(err))
   }
 
-  static fetchZips(req, res, next) {
+  static fetchZip(req, res, next) {
     console.log('fetchZips triggered')
-    User.fetchZips()
-      .then(zips => {
-        let zipList = []
-        zips.forEach(zip => {
-          if (!zipList.includes(zip.zip)) zipList.push(zip.zip)
-        })
-        return res.json({ zipList })
+    User.fetchZip()
+      .then(zip => {
+        return res.json({ zip })
+      })
+      .catch(err => next(err))
+  }
+
+  static deleteZip(req, res, next) {
+    let { id } = req.params
+    User.deleteZip(id)
+      .then(() => {
+        return res.json({ message: 'Zip removed from list' })
       })
       .catch(err => next(err))
   }
@@ -54,6 +59,9 @@ class UsersController {
     User.getUserIdByPhone(phone)
       .then(existingUser => {
         if (existingUser) throw new Error('duplicateUser')
+        return User.addZip(zip)
+      })
+      .then(() =>{
         return User.create(first_name, zip, phone, password)
       })
       .then(newUserId => {
