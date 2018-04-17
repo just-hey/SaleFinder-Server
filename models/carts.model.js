@@ -1,7 +1,7 @@
 const db = require('../db/knex.js')
 const knex = require('../db/knex')
 const axios = require('axios')
-const { User } = require('./')
+const { User } = require('./users.model')
 
 class Cart {
   constructor() {}
