@@ -26,7 +26,6 @@ class Cart {
       .where({ user_id })
       .first()
       .then(cart => {
-        console.log('carts zip',cart.zip)
         let zip = cart.zip
         let cart_id = cart.id
         return this.searchByUser(user_id)
