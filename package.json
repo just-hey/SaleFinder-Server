@@ -8,6 +8,7 @@
     "dev": "nodemon app.js",
     "start": "node app.js",
     "knex": "knex",
+    "automated": "node automated.js",
     "reboot-db": "npm run knex migrate:rollback && npm run knex migrate:latest && npm run knex seed:run"
   },
   "keywords": [],
@@ -18,6 +19,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "current-week-number": "^1.0.7",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",
@@ -25,10 +27,10 @@
     "levenshtein": "^1.0.5",
     "morgan": "^1.9.0",
     "path": "^0.12.7",
-    "pg": "^7.4.1"
+    "pg": "^7.4.1",
+    "twilio": "^3.15.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.1"
   }
 }
- 

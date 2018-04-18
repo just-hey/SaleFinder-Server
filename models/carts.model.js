@@ -1,9 +1,18 @@
 const db = require('../db/knex.js')
 const knex = require('../db/knex')
 const axios = require('axios')
+const currentWeekNumber = require('current-week-number')
 
 class Cart {
   constructor() {}
+
+  static findForSMS(week) {
+    return knex('cart_products')
+      .where({ week })
+      .join('carts', 'carts.id', 'cart_products.cart_id')
+      .rightJoin('users', 'users.id', 'user_id')
+
+  }
 
   static searchByUser(user_id) {
     return knex('carts')
@@ -33,8 +42,9 @@ class Cart {
             let found = cartProducts.find(el => el.productString === productString)
             if (!found) {
               let itemToAdd = { cart_id, productString }
+              let week = currentWeekNumber()
               return knex('cart_products')
-                .insert({ cart_id, productString })
+                .insert({ cart_id, productString, week })
             } else {
               return knex('cart_products')
                 .where({ cart_id, productString })

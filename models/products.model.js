@@ -10,6 +10,21 @@ class Product {
       .where({ zip })
   }
 
+  static checkForSMSMatch(searchName, zip, phone, first_name) {
+    return knex('products')
+      .where({ zip })
+      .then(items => {
+        let matches = items.filter(item => {
+          if (item.name.toLowerCase().includes(searchName.toLowerCase())) {
+            item.phone = phone
+            item.first_name = first_name
+            return item
+          }
+        })
+        return matches
+      })
+  }
+
   static getAllProducts(zip) {
     let returningProducts = []
     return knex('products')

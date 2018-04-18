@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.integer('cart_id').notNullable()
     table.foreign('cart_id').references('carts.id').onDelete('CASCADE')
     table.string('productString').notNullable().defaultTo('')
+    table.integer('week').notNullable().defaultTo(0)
     table.timestamps(true, true)
   })
 }
