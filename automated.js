@@ -7,8 +7,6 @@ const { promisify } = require('util')
 const client = require('twilio')(accountSid, authToken)
 const pCreate = promisify(client.messages.create).bind(client.messages)
 require('dotenv').config()
-// require the Twilio module and create a REST client
-
 
 function forSMS() {
   let exists = []
@@ -20,25 +18,19 @@ function forSMS() {
     })
     .then(matches => {
       matches.map(match => {
-        if (match.length > 0) {
-          exists.push(match[0])
-        }
+        if (match.length > 0) exists.push(match[0])
       })
       return exists
     })
     .then(textsToBe => {
-
-      let smsPromises = textsToBe.map(txtToBe => {
-        return SMSMaker(txtToBe)
-    })
-    return Promise.all(smsPromises)
+      let smsPromises = textsToBe.map(txtToBe => SMSMaker(txtToBe))
+      return Promise.all(smsPromises)
     })
     .then(() => process.exit(0))
     .catch(err => {
       console.log(err)
       process.exit(0)
     }
-
 }
 
 function checkListForMatch(list) {
