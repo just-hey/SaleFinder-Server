@@ -12,7 +12,6 @@ router.post('/new/:userid', CartsController.createCart)
 //add a product to a user's cart
 router.post('/change', AuthController.verifyUser, CartsController.addOrRemove)
 
-
 //remove a product from a user's cart
 // router.delete('/remove/:userid', CartsController.removeFromCart)
 

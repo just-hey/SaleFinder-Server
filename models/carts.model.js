@@ -11,7 +11,6 @@ class Cart {
       .where({ week })
       .join('carts', 'carts.id', 'cart_products.cart_id')
       .rightJoin('users', 'users.id', 'user_id')
-
   }
 
   static searchByUser(user_id) {
