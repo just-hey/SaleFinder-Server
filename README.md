@@ -12,9 +12,10 @@ SaleFinder is a full stack React App that allows users to register and have week
 SaleFinder was created in 2 weeks.
 
 
-### Deployed here: (soon to come)
+### Deployed here: http://salefinder.surge.sh/#/
 #### Frontend GitHub: https://github.com/just-hey/SaleFinder-Client
 #### Backend GitHub: https://github.com/just-hey/SaleFinder-Server
+#### Web Scrapers GitHub: https://github.com/just-hey/Grocery-Crawlers
 
 ## Features
 - Managed state through React components
@@ -41,4 +42,17 @@ SaleFinder was created in 2 weeks.
 
 ## Screenshots
 
-(soon to come)
+### Splash Page:
+![Splash Page](screenshots/splash.png)
+
+### Desktop Browse View:
+![Desktop Browse](screenshots/browseDesk.png)
+
+### Mobile Browse View:
+![Mobile Browse](screenshots/browseMobile.png)
+
+### Add an Item to Cart:
+![Add Item](screenshots/applesAdd.png)
+
+### View Items in Cart:
+![View Cart](screenshots/cart.png)
